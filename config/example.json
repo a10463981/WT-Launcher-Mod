@@ -1,0 +1,24 @@
+{
+  "base_apk": "WT_Launcher.apk",
+  "apktool": "tools/apktool.jar",
+  "frame_path": "tools/framework",
+  "out": "release/WT_Launcher_patch.apk",
+  "workdir": "build",
+  "zipalign": "tools/bin/zipalign",
+  "apksigner": "tools/bin/apksigner",
+  "boot_log": true,
+  "sign": null,
+  "add_packages": [
+    { "pkg": "com.shihab.diplay",     "cn": "CarPlay",  "en": "CarPlay",     "icon": "classic_icon_applet" },
+    { "pkg": "com.wt.music",          "cn": "QQ音乐",   "en": "QQ Music",    "icon": "classic_icon_music" },
+    { "pkg": "com.tencent.wecarnavi", "cn": "腾讯地图",  "en": "Tencent Map", "icon": "classic_icon_user_center" }
+  ],
+  "icons": [
+    { "target": "res/drawable/classic_icon_applet.png",              "source": "icons/carplay.png" },
+    { "target": "res/drawable-land-hdpi-v4/classic_icon_applet.png", "source": "icons/carplay.png" },
+    { "target": "res/drawable/classic_icon_music.png",               "source": "icons/qqmusic.png" },
+    { "target": "res/drawable-land-hdpi-v4/classic_icon_music.png",  "source": "icons/qqmusic.png" },
+    { "target": "res/drawable/classic_icon_user_center.png",         "source": "icons/tencentmap.png" },
+    { "target": "res/drawable-land-hdpi-v4/classic_icon_user_center.png", "source": "icons/tencentmap.png" }
+  ]
+}

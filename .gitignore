@@ -1,0 +1,22 @@
+# 构建产物
+build/
+out/
+*.apk.aligned
+
+# 原厂 APK（版权原因不入库；请自行从车机 /system/app 提取）
+WT_Launcher.apk
+*.apk
+!release/*.apk
+
+# 工具二进制
+tools/apktool.jar
+tools/framework/
+tools/bin/
+*.jks
+*.keystore
+*.p12
+*.pk8
+
+# 临时
+*.log
+.DS_Store
