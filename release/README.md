@@ -6,13 +6,13 @@
 |---|---|
 | 基线 | 原厂 OTA 包 `S311WT_Launcher.apk`（1.8.17.15 / versionCode 10817150） |
 | 修改后 versionCode | **10817241**（高于车机常见版本，避免降级失败） |
-| 大小 | 5,821,233 字节 |
-| MD5 | `e3fa871553de01aaecae655e387d935f` |
+| 大小 | 5,826,598 字节 |
+| MD5 | `be4ab9f5c20d58bea3b0b9517711f4e1` |
 
 ### 改动
 
 1. 原厂 14 条白名单**一条未动**
-2. 追加 5 条：酷我音乐 / 喜马拉雅 / DiPlay / ES / 语音设置（含固定图标）
+2. 追加 7 条：酷我音乐 / 喜马拉雅 / DiPlay / ES / 语音设置 / 飞牛TV / 飞牛音乐
 3. 7 张图标替换（酷我、喜马拉雅、CarPlay、语音设置）
 4. 修 2 个 NPE（黑屏根因）
 5. `resources.arsc` 与 `META-INF`（原厂签名）**逐字节保留**，仅 `AndroidManifest.xml` 的 versionCode 整数被改
