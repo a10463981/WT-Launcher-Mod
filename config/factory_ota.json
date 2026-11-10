@@ -1,0 +1,67 @@
+{
+  "base_apk": "/vol1/@appshare/fn-deepseek-harness/车载APK/dec/ota200512/system/app/S311WT_Launcher.apk",
+  "apktool": "../tools/apktool.jar",
+  "frame_path": "../work/framework",
+  "out": "build/WT_Launcher_factory_v1.apk",
+  "workdir": "build/fwork",
+  "zipalign": "../work/sdk/bt/android-11/zipalign",
+  "boot_log": true,
+  "add_packages": [
+    {
+      "pkg": "cn.kuwo.kwmusiccar",
+      "cn": "酷我音乐",
+      "en": "Kuwo Music",
+      "icon": "classic_icon_music"
+    },
+    {
+      "pkg": "com.ximalaya.ting.android.car",
+      "cn": "喜马拉雅",
+      "en": "Ximalaya",
+      "icon": "classic_icon_applet"
+    },
+    {
+      "pkg": "com.shihab.diplay",
+      "cn": "DiPlay",
+      "en": "DiPlay",
+      "icon": "classic_icon_user_center"
+    },
+    {
+      "pkg": "com.estrongs.android.pop",
+      "cn": "ES文件浏览器",
+      "en": "ES File Explorer",
+      "icon": "classic_icon_file_manager"
+    },
+    {
+      "pkg": "com.tencent.wecarspeech",
+      "cn": "语音设置",
+      "en": "Voice Setting",
+      "icon": ""
+    }
+  ],
+  "icons": [
+    {
+      "target": "res/drawable/classic_icon_music.png",
+      "source": "icons/kuwo.png"
+    },
+    {
+      "target": "res/drawable-land-hdpi-v4/classic_icon_music.png",
+      "source": "icons/kuwo.png"
+    },
+    {
+      "target": "res/drawable/classic_icon_applet.png",
+      "source": "icons/ximalaya.png"
+    },
+    {
+      "target": "res/drawable-land-hdpi-v4/classic_icon_applet.png",
+      "source": "icons/ximalaya.png"
+    },
+    {
+      "target": "res/drawable/classic_icon_user_center.png",
+      "source": "icons/carplay.png"
+    },
+    {
+      "target": "res/drawable-land-hdpi-v4/classic_icon_user_center.png",
+      "source": "icons/carplay.png"
+    }
+  ]
+}

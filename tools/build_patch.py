@@ -116,22 +116,23 @@ def patch_appinfo_npe(dec):
     if 'const/4 v3, 0x0\n\n    iput-object v3, p0, Lcom/autopai/applist/model/infos/AppInfo;->iconDrawable' in s:
         log("AppInfo 已是安全版本，跳过", "warn")
         return
-    # 匹配原版 else 分支（容错：标签名可能是 :cond_0 / :cond_1 ...）
+    # 匹配原版 else 分支（寄存器编号随版本不同，如 v3/v4 或 v2/v3）
     pat = re.compile(
         r'(    :cond_\d+\n)'
-        r'    iget-object v3, p0, Lcom/autopai/applist/model/infos/AppInfo;->mInfo:[^\n]*\n\n'
-        r'(?:    if-nez v3, :cond_\d+\n\n)?'
-        r'    const/16 v4, 0xf0\n\n'
-        r'    invoke-virtual \{v3, v4\}, Lcom/autopai/applist/model/compat/LauncherActivityInfoCompat;->getBadgedIcon\(I\)Landroid/graphics/drawable/Drawable;\n\n'
-        r'    move-result-object v3\n\n'
-        r'    iput-object v3, p0, Lcom/autopai/applist/model/infos/AppInfo;->iconDrawable:Landroid/graphics/drawable/Drawable;\n\n'
+        r'    iget-object (v\d+), p0, Lcom/autopai/applist/model/infos/AppInfo;->mInfo:[^\n]*\n\n'
+        r'(?:    if-nez \2, :cond_\d+\n\n)?'
+        r'    const/16 (v\d+), 0xf0\n\n'
+        r'    invoke-virtual \{\2, \3\}, Lcom/autopai/applist/model/compat/LauncherActivityInfoCompat;->getBadgedIcon\(I\)Landroid/graphics/drawable/Drawable;\n\n'
+        r'    move-result-object \2\n\n'
+        r'    iput-object \2, p0, Lcom/autopai/applist/model/infos/AppInfo;->iconDrawable:Landroid/graphics/drawable/Drawable;\n\n'
         r'    goto :goto_0\n'
     )
     def _repl(m):
+        label, reg = m.group(1), m.group(2)
         return (
-            m.group(1)
-            + '    const/4 v3, 0x0\n\n'
-            + '    iput-object v3, p0, Lcom/autopai/applist/model/infos/AppInfo;->iconDrawable:Landroid/graphics/drawable/Drawable;\n\n'
+            label
+            + '    const/4 ' + reg + ', 0x0\n\n'
+            + '    iput-object ' + reg + ', p0, Lcom/autopai/applist/model/infos/AppInfo;->iconDrawable:Landroid/graphics/drawable/Drawable;\n\n'
             + '    goto :goto_0\n'
         )
     s2, n = pat.subn(_repl, s, count=1)
