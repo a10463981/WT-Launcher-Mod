@@ -71,8 +71,9 @@ def _insert_before_last_return(path, block):
     return True
 
 
-def patch_whitelist(dec, packages):
+def patch_whitelist(dec, packages, replacements=None):
     """packages: [{"pkg":..., "icon": "cstr"}]"""
+    replacements = replacements or []
     d = os.path.join(dec, "smali/com/autopai/applist/model/config")
     f1 = os.path.join(d, "AppsConfig$1.smali")
     f4 = os.path.join(d, "AppsConfig$4.smali")
@@ -81,6 +82,18 @@ def patch_whitelist(dec, packages):
         raise SystemExit("AppsConfig$1.smali 路径异常")
     if not os.path.exists(f1):
         raise SystemExit(f"找不到 {f1}")
+    # 先做既有条目的字符串替换（如把"包名/类名"式改成纯包名）
+    for rep in replacements:
+        src, dst = rep.get("old"), rep.get("new")
+        if not src or not dst:
+            continue
+        txt = read(f1)
+        if src in txt:
+            write(f1, txt.replace(src, dst))
+            log(f"替换白名单条目: {src} -> {dst}")
+        else:
+            log(f"未找到待替换条目: {src}", "warn")
+
     # 检查是否已加过（用第一个包名判断）
     if packages and packages[0]["pkg"] in read(f1):
         log("白名单已包含目标包名，跳过", "warn")
@@ -306,7 +319,7 @@ def main():
     # 2. 打补丁
     if cfg.get("boot_log", True):
         patch_boot_log(dec)
-    patch_whitelist(dec, cfg.get("add_packages", []))
+    patch_whitelist(dec, cfg.get("add_packages", []), cfg.get("replace_entries", []))
     patch_appinfo_npe(dec)
     patch_utilities_guard(dec)
 

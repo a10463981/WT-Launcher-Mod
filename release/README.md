@@ -1,25 +1,30 @@
 # Release 说明
 
-## WT_Launcher_C_carbase.apk（✅ 真车验证通过）
+## WT_Launcher_C2_verified.apk（✅ 真车验证通过）
 
 | 项目 | 值 |
 |---|---|
 | 基线 | 车机现装 `WT_Launcher.apk`（1.8.17.23 / versionCode 10817230） |
-| 大小 | 5,846,013 字节 |
-| MD5 | `0859aa2bdd12d3eebb63874b1a936843` |
-| AndroidManifest | **与原机逐字节一致**（未改 versionCode） |
+| 大小 | 5,846,005 字节 |
+| MD5 | `37cb5f0822890310ee8a3c8c40dfa93a` |
+| AndroidManifest | **与原机逐字节一致** |
 | 签名 | 原厂 freescale 证书，未重签 |
 
-### 改动
+### 白名单 16 条（原机 15 条 + DiPlay）
 
-1. 白名单 +1：`com.shihab.diplay`（CarPlay / 75Play）
-2. 图标替换 7 张（酷我 / 喜马拉雅 / 腾讯视频 / CarPlay）
-3. 修复 `AppInfo` NPE（黑屏根因）
-4. 修复 `getResourcesID` 空名 NPE
-5. 启动日志写 `/sdcard/launcher_boot.txt`
+原机 15 条原样保留，只做了两处改动：
 
-> 车机 1.8.17.23 的白名单里本来就有酷我 / 喜马拉雅 / ES / 语音设置 / 腾讯视频，
-> 因此本版只补 DiPlay 并修正图标。
+1. 第 15 条 `com.tencent.wecarspeech/com.tencent.wecarspeech.app.MoreActivity`
+   → 改为纯包名 `com.tencent.wecarspeech`
+   （主列表只比对包名，组件式写法永远匹配不到 —— 这是原机的 bug）
+2. 新增第 16 条 `com.shihab.diplay`（CarPlay / 75Play）
+
+### 其它改动
+
+- 图标替换 7 张：酷我 / 喜马拉雅 / 腾讯视频 / CarPlay
+- 修复 `AppInfo` NPE（加白名单黑屏的根因）
+- 修复 `getResourcesID` 空名 NPE
+- 启动日志 `/sdcard/launcher_boot.txt`
 
 ### 安装
 
